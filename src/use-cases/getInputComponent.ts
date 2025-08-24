@@ -1,6 +1,6 @@
-import { KeyValueInputField } from "../../KeyValueInputField";
-import { NumberInputField } from "../../NumberInputField";
-import { TextInputField } from "../../TextInputField";
+import { KeyValueInputField } from "../components/KeyValueInputField.tsx";
+import { NumberInputField } from "../components/NumberInputField.tsx";
+import { TextInputField } from "../components/TextInputField.tsx";
 
 export type ComponentType = "text" | "number" | "keyValue" | "media" | "financial";
 

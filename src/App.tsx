@@ -2,8 +2,10 @@
 import { useRef } from "react";
 import "./App.css";
 import { ProductForm, type ProductFormType } from "./components/ProductForm";
+import {useProductSchema} from "./use-cases";
 
 function App() {
+    const schema = useProductSchema();
   const formRef = useRef<ProductFormType>(null);
 
   return (
@@ -16,6 +18,7 @@ function App() {
         onSubmit={(formState) => {
           console.log("formState", formState);
         }}
+        schema={schema}
       />
       <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
         <button

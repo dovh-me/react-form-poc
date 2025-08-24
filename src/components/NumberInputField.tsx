@@ -2,7 +2,7 @@ import type { ChangeEvent } from "react";
 import type { InputFieldProps } from "./types.ts";
 
 export const NumberInputField = (props: InputFieldProps<number>) => {
-  const { label, helperText, value, onChange } = props;
+  const { label, helperText, value, onChange, ...rest } = props;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     // Convert the string value to a number before passing it to the onChange handler
@@ -15,7 +15,7 @@ export const NumberInputField = (props: InputFieldProps<number>) => {
         ...event.target,
         value: numericValue,
       },
-    } as ChangeEvent<HTMLInputElement>;
+    } as unknown as ChangeEvent<HTMLInputElement>;
 
     onChange?.(newEvent);
   };
@@ -31,7 +31,7 @@ export const NumberInputField = (props: InputFieldProps<number>) => {
     >
       {label && <div style={{ fontSize: "0.8rem" }}>{label}</div>}
       <input
-        {...props}
+        {...rest}
         type="number"
         style={{ width: "100%", padding: "10px 5px", border: "grey 1px solid" }}
         value={value}

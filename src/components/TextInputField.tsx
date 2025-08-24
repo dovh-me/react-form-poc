@@ -8,7 +8,7 @@ interface TextInputFieldProps extends InputFieldProps<string> {
 }
 
 export const TextInputField = (props: TextInputFieldProps) => {
-  const { label, helperText, value, onChange, placeholder, pattern } = props;
+  const { label, helperText, value, onChange, placeholder, pattern, ...rest } = props;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event?.target?.value;
@@ -32,7 +32,7 @@ export const TextInputField = (props: TextInputFieldProps) => {
       {label && <div style={{ fontSize: "0.8rem" }}>{label}</div>}
       {/* @ts-ignore */}
       <input
-        {...props}
+        {...rest}
         style={{ width: "100%", padding: "10px 5px", border: "grey 1px solid" }}
         value={value}
         onChange={handleChange}
