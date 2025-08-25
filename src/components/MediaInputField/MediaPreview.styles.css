@@ -1,0 +1,14 @@
+.media-preview-container {
+  position: relative;
+}
+
+.media-preview-container .delete-btn {
+  display: none;
+  position: absolute;
+  top: 5;
+  right: 5;
+}
+
+.media-preview-container:hover .delete-btn {
+  display: inline-block;
+}

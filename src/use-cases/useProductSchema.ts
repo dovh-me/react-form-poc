@@ -42,6 +42,12 @@ const schema = [
     field: "metadata",
     type: "keyValue",
   },
+  {
+    field: "search_result_image",
+    type: "media",
+    mediaType: "image",
+    multiple: false,
+  },
 ];
 
 export const useProductSchema = (): SchemaObject[] => {

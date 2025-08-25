@@ -1,4 +1,5 @@
 import { KeyValueInputField } from "../components/KeyValueInputField.tsx";
+import { MediaInputField } from "../components/MediaInputField/MediaInputField.tsx";
 import { NumberInputField } from "../components/NumberInputField.tsx";
 import { TextInputField } from "../components/TextInputField.tsx";
 
@@ -13,7 +14,7 @@ export const getInputComponent = (type: ComponentType) => {
     case "keyValue":
       return KeyValueInputField;
     case "media":
-      return TextInputField;
+      return MediaInputField;
     case "financial":
       return NumberInputField;
     default:
