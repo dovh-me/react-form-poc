@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useState, type ChangeEvent } from "react";
 import type { InputFieldProps } from "../types";
 import { MediaPreview } from "./MediaPreview";
 import { hookstate, type State } from "@hookstate/core";
+import { UploadingPreview } from "./UploadingPreview";
 
 export type MediaItem = {
   key: string;
@@ -13,7 +15,7 @@ type UploadState = {
   progress: number;
 };
 
-type MediaUpload = {
+export type MediaUpload = {
   file: File;
   mediaItem: MediaItem;
   uploadProgress: State<UploadState>;
@@ -27,15 +29,21 @@ interface MediaInputFieldProps extends InputFieldProps<MediaItem[]> {
 }
 
 export const MediaInputField = (props: MediaInputFieldProps) => {
-  const { multiple = true, autoUpload = true, label, onChange, onUpload } = props;
+  const { multiple = true, autoUpload = true, label, onChange, onUpload, value } = props;
   const inputRef = useRef<HTMLInputElement>(null);
   const [mediaUploadQueue, setMediaUploadQueue] = useState<MediaUpload[]>([]);
+  const filteredValue =
+    value?.filter?.((item) =>
+      mediaUploadQueue.some((uploadingItem) => uploadingItem.mediaItem === item)
+    ) ?? [];
 
-  const handleSelectClick = () => {
+  const handleSelectClick = (e: any) => {
+    e.preventDefault();
     inputRef?.current?.click();
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     let value = [...(e?.target?.files ?? [])];
     if (!multiple) {
       value = [...value]?.splice(0, 1);
@@ -83,10 +91,15 @@ export const MediaInputField = (props: MediaInputFieldProps) => {
         type="file"
         multiple={multiple}
         onChange={handleChange}
+        onSelect={handleChange}
       />
 
+      {filteredValue?.map((item) => {
+        return <MediaPreview mediaItem={item} />;
+      })}
+
       {mediaUploadQueue.map((mediaItem) => {
-        return <MediaPreview mediaItem={mediaItem} />;
+        return <UploadingPreview mediaUploadItem={mediaItem} />;
       })}
     </div>
   );
